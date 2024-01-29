@@ -16,3 +16,9 @@ lilyos.bin: linker.ld kernel.o boot.o
 
 local_linux_install: lilyos.bin 
 	sudo cp $< /boot/lilyos.bin
+
+iso: lilyos.bin
+	mkdir -p isodir/boot/grub
+	cp $< isodir/boot/$<
+	cp grub.cfg isodir/boot/grub/grub.cfg
+	grub-mkrescue -o lilyos.iso isodir
