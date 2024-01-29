@@ -1,1 +1,0 @@
-/usr/local/bin/i686-elf-tools-linux/bin/i686-elf-g++ -c kernel.cpp -o kernel.o -ffreestanding -O2 -Wall -Wextra -fno-exceptions -fno-rtti -nostdlib
