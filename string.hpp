@@ -1,4 +1,5 @@
-#pragma once
+#ifndef STRING_HPP
+#define STRING_HPP
 
 #include <stdint.h>
 #include <stddef.h>
@@ -11,3 +12,5 @@ namespace string {
     	return len;
     }
 }
+
+#endif

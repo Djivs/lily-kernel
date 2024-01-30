@@ -1,10 +1,10 @@
-GPPPARAMS = -ffreestanding -O2 -Wall -Wextra -fno-exceptions -fno-rtti -nostdlib
+GPPPARAMS = -ffreestanding -O2 -Wall -Wextra -fno-exceptions -fno-rtti -nostdlib -r
 LDPARAMS = -ffreestanding -O2 -nostdlib  -lgcc
 
 objects = boot.o kernel.o
 
-kernel.o: kernel.cpp
-	/usr/local/bin/i686-elf-tools-linux/bin/i686-elf-g++ -c $< -o $@ $(GPPPARAMS)
+kernel.o: kernel.cpp VGAPrinter.cpp
+	/usr/local/bin/i686-elf-tools-linux/bin/i686-elf-g++ kernel.cpp VGAPrinter.cpp -o $@ $(GPPPARAMS)
 
 boot.o: boot.s
 	/usr/local/bin/i686-elf-tools-linux/bin/i686-elf-as $< -o $@ 
