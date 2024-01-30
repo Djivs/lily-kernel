@@ -1,15 +1,17 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+
+#include "string.hpp"
  
 /* Check if the compiler thinks you are targeting the wrong operating system. */
 #if defined(__linux__)
-#error "You are not using a cross-compiler, you will most certainly run into trouble"
+#error "You should use a cross-compiler."
 #endif
  
 /* This tutorial will only work for the 32-bit ix86 targets. */
 #if !defined(__i386__)
-#error "This tutorial needs to be compiled with a ix86-elf compiler"
+#error "You should use a ix86-elf compiler"
 #endif
  
 /* Hardware text mode color constants. */
@@ -40,14 +42,6 @@ static inline uint8_t vga_entry_color(enum vga_color fg, enum vga_color bg)
 static inline uint16_t vga_entry(unsigned char uc, uint8_t color) 
 {
 	return (uint16_t) uc | (uint16_t) color << 8;
-}
- 
-size_t strlen(const char* str) 
-{
-	size_t len = 0;
-	while (str[len])
-		len++;
-	return len;
 }
  
 static const size_t VGA_WIDTH = 80;
@@ -101,7 +95,7 @@ void terminal_write(const char* data, size_t size)
  
 void terminal_writestring(const char* data) 
 {
-	terminal_write(data, strlen(data));
+	terminal_write(data, string::strlen(data));
 }
  
 extern "C" void kernel_main(void) 
@@ -110,5 +104,5 @@ extern "C" void kernel_main(void)
 	terminal_initialize();
  
 	/* Newline support is left as an exercise. */
-	terminal_writestring("Lily kernel is working!\n");
+	terminal_writestring("Welcome to the Lily's Kernel.\n");
 }
