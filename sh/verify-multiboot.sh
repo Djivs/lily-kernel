@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if grub-file --is-x86-multiboot lilyos.bin; then
     echo multiboot confirmed
 else
