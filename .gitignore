@@ -1,7 +1,7 @@
 # OS iso
 isodir/*
 lilyos.iso
-
+lilyos.bin
 
 # Created by https://www.toptal.com/developers/gitignore/api/c,c++,assembler,linux
 # Edit at https://www.toptal.com/developers/gitignore?templates=c,c++,assembler,linux
