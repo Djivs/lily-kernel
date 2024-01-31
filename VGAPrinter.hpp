@@ -32,13 +32,15 @@ extern "C" {
 class VGAPrinter {
     public:
         VGAPrinter();
+
+        void set_text_color(vga_color color);
+        void set_background_color(vga_color color);
         
         void terminal_writestring(const char* data);
         void terminal_write(const char* data, size_t size);
         void terminal_putchar(char c);
     private:
         void terminal_putentryat(char c, uint8_t color, size_t x, size_t y);
-        void terminal_setcolor(uint8_t color);
 
         void move_terminal_rows_up();
 
@@ -49,6 +51,9 @@ class VGAPrinter {
         size_t terminal_column;
         uint8_t terminal_color;
         uint16_t* terminal_buffer;
+
+        vga_color text_color;
+        vga_color background_color;
 
         static const size_t VGA_WIDTH = 80;
         static const size_t VGA_HEIGHT = 25;
