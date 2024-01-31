@@ -29,16 +29,19 @@ void VGAPrinter::terminal_write(const char* data, size_t size)
 void VGAPrinter::terminal_putchar(char c) 
 {
     if (c == '\n') {
-        terminal_row++;
-        terminal_column = 0;
-        return;
+        terminal_column = VGA_WIDTH;
+    } else {
+	    terminal_putentryat(c, terminal_color, terminal_column, terminal_row);
+        ++terminal_column;
     }
-    
-	terminal_putentryat(c, terminal_color, terminal_column, terminal_row);
-	if (++terminal_column == VGA_WIDTH) {
+
+	if (terminal_column == VGA_WIDTH) {
 		terminal_column = 0;
-		if (++terminal_row == VGA_HEIGHT)
-			terminal_row = 0;
+        if (++terminal_row == VGA_HEIGHT) {
+            --terminal_row;
+            move_terminal_rows_up();
+            // terminal_row = 0;
+        } 
 	}
 
    
@@ -53,6 +56,23 @@ void VGAPrinter::terminal_putentryat(char c, uint8_t color, size_t x, size_t y)
 void VGAPrinter::terminal_setcolor(uint8_t color) 
 {
 	terminal_color = color;
+}
+
+void VGAPrinter::move_terminal_rows_up() {
+    for (size_t row = 1; row < VGA_HEIGHT; ++row) {
+        for (size_t col = 0; col < VGA_WIDTH; ++col) {
+            const size_t upper_index = (row - 1) *VGA_WIDTH + col;
+            const size_t lower_index = row * VGA_WIDTH + col;
+
+            terminal_buffer[upper_index] = terminal_buffer[lower_index];
+        }
+    }
+
+    for (size_t col = 0; col < VGA_WIDTH; ++col) {
+        const size_t index = (VGA_HEIGHT - 1) * VGA_WIDTH + col;
+
+        terminal_buffer[index] = ' '; 
+    }
 }
 
 inline uint8_t VGAPrinter::vga_entry_color(enum vga_color fg, enum vga_color bg) 

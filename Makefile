@@ -1,4 +1,4 @@
-GPPPARAMS = -ffreestanding -O2 -Wall -Wextra -fno-exceptions -fno-rtti -nostdlib -r
+GPPPARAMS = -ffreestanding -O2 -Wall -Wextra -fno-exceptions -fno-rtti -nostdlib -r -std=c++11
 LDPARAMS = -ffreestanding -O2 -nostdlib  -lgcc
 
 objects = boot.o kernel.o
@@ -22,3 +22,9 @@ iso: lilyos.bin
 	cp $< isodir/boot/$<
 	cp grub.cfg isodir/boot/grub/grub.cfg
 	grub-mkrescue -o lilyos.iso isodir
+
+clear:
+	rm lilyos.iso
+	rm lilyos.bin
+	rm kernel.o
+	rm boot.o
