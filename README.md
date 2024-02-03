@@ -1,4 +1,4 @@
 # lily-kernel
 ![](img/lily.jpg)
 
-32-big kernel for Lily OS
+32-bit kernel for Lily OS
