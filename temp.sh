@@ -1,0 +1,12 @@
+git rm Makefile
+git rm README.md
+git rm VGAPrinter.cpp
+git rm VGAPrinter.hpp
+git rm boot.s
+git rm crti.s
+git rm crtn.s
+git rm grub.cfg
+git rm img/lily.jpg
+git rm kernel.cpp
+git rm linker.ld
+git rm sh/qemu-exec.sh
